@@ -1,8 +1,3 @@
-Aqui está a estrutura do README.md completamente ajustada e formatada para o seu repositório Sysmon-monitor-ultra-leve-cpu, incluindo o link oficial do projeto, instruções claras de clone e instalação:
-
-📄 Conteúdo para o seu README.md
-Markdown
-
 # Sysmon - Monitor de Sistema Ultra Leve
 
 O **Sysmon** é um monitor de sistema TUI (Terminal User Interface) extremamente leve, desenvolvido em Bash puro para distribuições Linux. Projetado para oferecer baixo consumo de memória (~8 MB RAM) sem requerer dependências pesadas de ambientes gráficos (Qt/GTK) ou uso de GPU.
