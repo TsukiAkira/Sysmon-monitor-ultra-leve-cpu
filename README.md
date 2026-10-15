@@ -59,14 +59,3 @@ sudo PREFIX=/usr/local ./uninstall.sh
 📄 Licença
 Distribuído sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
----
-
-### 📌 Passos para atualizar no repositório local:
-
-1. Abra o arquivo `README.md` no seu projeto e substitua o texto pelo bloco acima.
-2. No terminal, execute os comandos para enviar a atualização para o GitHub:
-
-```bash
-git add README.md
-git commit -m "docs: atualiza README com informacoes completas e links de clone"
-git push origin main
