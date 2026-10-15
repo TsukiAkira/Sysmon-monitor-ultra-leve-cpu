@@ -1,89 +1,77 @@
-# cryo-sysmon
+Aqui está a estrutura do README.md completamente ajustada e formatada para o seu repositório Sysmon-monitor-ultra-leve-cpu, incluindo o link oficial do projeto, instruções claras de clone e instalação:
 
-Monitor de sistema **TUI** (estilo htop) em **bash puro**, sem dependências extras, para qualquer Linux.
-Mostra CPU, GPU, RAM, temperaturas, bateria e processos, com tema truecolor "CRYO CORE".
+📄 Conteúdo para o seu README.md
+Markdown
 
-*English: a lightweight pure-bash terminal system monitor for Linux (CPU, GPU, RAM, temperatures, battery, processes). Reads sysfs/procfs directly, no external dependencies.*
+# Sysmon - Monitor de Sistema Ultra Leve
 
-<!-- Coloque aqui um print: docs/screenshot.png
-![screenshot](docs/screenshot.png)
--->
+O **Sysmon** é um monitor de sistema TUI (Terminal User Interface) extremamente leve, desenvolvido em Bash puro para distribuições Linux. Projetado para oferecer baixo consumo de memória (~8 MB RAM) sem requerer dependências pesadas de ambientes gráficos (Qt/GTK) ou uso de GPU.
 
-## Recursos
-- **Nomes do hardware detectados sozinhos:** CPU, GPU (via `pci.ids`) e modelo da máquina (DMI).
-- **Limites térmicos do próprio PC:** lê `temp*_max` e `temp*_crit` de cada sensor (hwmon), com padrões de reserva. Acima do limite crítico aparece ⚠.
-- **Textos e limites editáveis:** tecla `e` abre a configuração no seu editor e recarrega ao fechar.
-- **Matar processo:** `x` (ou Delete) pede confirmação: `t` = TERM, `k` = KILL.
-- **Leve:** CPU% por delta (sem `sleep`), lista de processos com 1 `cat` + 1 `awk`, RAM por `/proc/meminfo`, quadro montado em memória e escrito com um único `printf`. Medido na máquina do autor: ~8 MB de RSS.
-- **Adapta-se ao PC:** esconde quadros que não existem (bateria em desktop, zram, GPU sem dados).
+---
 
-## Requisitos
-- Linux com `/proc` e `/sys`; **bash 5.0+** (usa `EPOCHREALTIME`); `awk` (gawk ou mawk) e `cat`.
-- Terminal com **truecolor** e pelo menos **74 colunas**.
-- GPU: AMD e Intel mostram uso/frequência quando o driver expõe no sysfs. **NVIDIA com driver proprietário não expõe esses dados**, então aparece `--`.
-- A lista de "quem usa a GPU" usa `find -printf` (GNU findutils).
+## 🌟 Principais Recursos
 
-## Instalação
-```sh
-git clone https://github.com/SEU_USUARIO/cryo-sysmon.git
-cd cryo-sysmon
-./install.sh                          # só para o seu usuário (~/.local)
-# ou, para todos:  sudo PREFIX=/usr/local ./install.sh
-```
-Depois procure **sysmon** no menu de aplicativos, ou rode `sysmon` no terminal
-(se o comando não for encontrado, adicione `~/.local/bin` ao `PATH`).
+- **Detecção Automática de Hardware:** Identifica modelo da CPU, GPU (via `pci.ids` ou nome do driver) e informações DMI da máquina.
+- **Monitoramento Térmico Automático:** Leitura direta de sensores `hwmon` (`temp*_max` e `temp*_crit`). Exibe alertas visuais (⚠) ao atingir limites críticos.
+- **Arquivo de Configuração Simples:** Edição rápida em `~/.config/sysmon/sysmon.conf` pressionando a tecla `e` durante a execução.
+- **Lançador de Terminal Universal:** Abre automaticamente no emulador de terminal disponível no sistema e cria atalho no menu de aplicações.
+- **Interface Otimizada:** Exibição condicional de quadros (esconde bateria em desktops, zram ou GPUs sem dados).
 
-Remover: `./uninstall.sh` (a configuração é mantida).
+---
 
-## Uso
-```
-sysmon            atualiza a cada 1 s
-sysmon 0.5        intervalo em segundos (0.5 a 10)
-sysmon --init     cria a configuração com exemplos
-sysmon --conf     mostra o caminho da configuração
-sysmon --ajuda    ajuda
-```
+## 🚀 Instalação Rápida
 
-| Tecla | Ação |
-|---|---|
-| `q` | sair |
-| `↑` `↓` / `j` `k` | mover a seleção; `PgUp`/`PgDn` pulam 10 linhas |
-| `s` | ordem dos processos: mem → cpu → pid |
-| `x` / `Delete` | matar o processo selecionado (`t` = TERM, `k` = KILL, outra tecla cancela) |
-| `e` | editar a configuração e recarregar |
-| `+` / `-` | intervalo ±0,5 s |
+### Opção 1: Via Git (Recomendado)
 
-PID 1 e o próprio sysmon são protegidos contra o kill.
+```bash
+git clone [https://github.com/TsukiAkira/Sysmon-monitor-ultra-leve-cpu.git](https://github.com/TsukiAkira/Sysmon-monitor-ultra-leve-cpu.git)
+cd Sysmon-monitor-ultra-leve-cpu
+./install.sh
 
-## Configuração
-Arquivo: `~/.config/sysmon/sysmon.conf` (formato `chave = valor`, `#` comenta, temperaturas em °C).
+Opção 2: Instalação Global (Todos os usuários)
+Bash
 
-```ini
-title        = MEU PC
-cpu_name     = Meu processador
-sensors_max  = 8
-hide         = Core*,Sensor*,Tccd*
-label.nvme   = SSD
-limit.CPU    = 90
-```
-- `label.<chip>`: renomeia um sensor (`cat /sys/class/hwmon/*/name` lista os chips).
-- `limit.<Texto exibido>`: define o limite do sensor.
-- Outras chaves: `machine_name`, `gpu_name`, `subtitle`, `step`, `show_gpu`, `show_battery`, `gpu_bar`.
+sudo PREFIX=/usr/local ./install.sh
 
-## Terminais
-O launcher do menu usa o primeiro que encontrar: konsole, xfce4-terminal, xterm, lxterminal, mate-terminal,
-gnome-terminal, foot, alacritty, kitty. Para forçar um: `SYSMON_TERMINAL=xterm sysmon-launch`.
-No Konsole, `SYSMON_GEOMETRY_PX=700x986` define o tamanho da janela em pixels.
+⌨️ Atalhos de Teclado
+TeclaAçãoeAbre o arquivo de configuração no editor padrão ($EDITOR, nano ou vi) e recarrega ao fechar.xFinaliza processos selecionados.PgUp / PgDnNavegação nas listas e tabelas.qSai da aplicação.
+⚙️ Personalização (sysmon.conf)
+O arquivo de configuração é criado automaticamente em ~/.config/sysmon/sysmon.conf. Exemplo de ajustes manuais:
 
-## Testes
-```sh
-bash tests/functest.sh     # compara as funções de desenho com a referência, byte a byte
-```
-A integração contínua (GitHub Actions) roda checagem de sintaxe, esse teste e um teste de fumaça em pty.
+Ini, TOML
 
-## Aviso sobre o nome
-Já existe outro programa chamado "sysmon" (Sysinternals Sysmon para Linux). Este projeto instala o comando `sysmon`
-em `~/.local/bin` por padrão; se você usa o outro, renomeie o arquivo ao instalar.
+# Renomear rótulos de sensores
+label.nvme = SSD
 
-## Licença
-MIT. Veja [LICENSE](LICENSE).
+# Definir limites térmicos personalizados (°C)
+limit.CPU = 90
+limit.GPU = 95
+limit.NVMe = 82.8
+
+🗑️ Desinstalação
+Para remover o Sysmon do sistema:
+
+Bash
+
+./uninstall.sh
+
+Se tiver instalado globalmente:
+
+Bash
+
+sudo PREFIX=/usr/local ./uninstall.sh
+
+📄 Licença
+Distribuído sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+---
+
+### 📌 Passos para atualizar no repositório local:
+
+1. Abra o arquivo `README.md` no seu projeto e substitua o texto pelo bloco acima.
+2. No terminal, execute os comandos para enviar a atualização para o GitHub:
+
+```bash
+git add README.md
+git commit -m "docs: atualiza README com informacoes completas e links de clone"
+git push origin main
